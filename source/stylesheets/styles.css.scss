@@ -1,0 +1,1011 @@
+/* ------------------------------------------
+  IMPORTS
+--------------------------------------------- */
+@charset "utf-8";
+@import "compass/css3";
+@import "reset.css.scss";
+
+/* ------------------------------------------
+  CONVERT PX TO EM
+--------------------------------------------- */
+@function em($pixels, $context: 16) {
+  @return #{$pixels/$context}em;
+}
+
+/* ------------------------------------------
+  MEDIA QUERIES
+--------------------------------------------- */
+@mixin breakpoint($media) {
+  @if $media == hand {
+    @media screen and (min-width: em(460)) { @content; }
+  }
+  @else if $media == lap {
+    @media screen and (min-width: em(600)) { @content; }
+  }
+  @else if $media == desk {
+    @media screen and (min-width: em(740)) { @content; }
+  }
+  @else if $media == wall {
+    @media screen and (min-width: em(1000)) { @content; }
+  }
+  @else if $media == helicopter {
+    @media screen and (min-width: em(1660)) { @content; }
+  }
+  @else if $media == microscope {
+    @media screen and (max-width: em(300)) { @content; }
+  }
+  @else if $media == highres {
+    @media screen and (-webkit-min-device-pixel-ratio: 1.3), screen and (min--moz-device-pixel-ratio: 1.3), screen and (-o-min-device-pixel-ratio: 2/1), screen and (min-device-pixel-ratio: 1.3), screen and (min-resolution: 192dpi), screen and (min-resolution: 2dppx) { @content; }
+  }
+}
+
+/* ------------------------------------------
+  CLEARFIX
+--------------------------------------------- */
+@mixin clearfix {
+  *zoom: 1;
+  &:before, &:after {
+    content: "";
+    display: table
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+/* ------------------------------------------
+  COLOURS
+--------------------------------------------- */
+$color-red: #fb1717;
+$color-black: #333;
+$color-grey: #bab9b6;
+$color-brown: #666666;
+$color-white: #fff;
+$color-blue: #0044cc;
+
+/* ------------------------------------------
+  FONTS
+--------------------------------------------- */
+$font-body: Georgia, "times new roman", times, serif;
+$font-headers: Helvetica, sans-serif;
+
+/* ------------------------------------------
+  SELECTIONS
+--------------------------------------------- */
+::-moz-selection {
+  background: $color-black;
+  color: $color-white;
+}
+
+::selection {
+  background: $color-black;
+  color: $color-white;
+}
+
+img::selection {
+  background: transparent;
+}
+
+img::-moz-selection {
+  background: transparent;
+}
+
+h1::selection {
+  -webkit-text-stroke: 2px $color-red;
+  background: transparent;
+  color: transparent;
+}
+
+::selection:window-inactive,
+h1::selection:window-inactive {
+  background: $color-grey;
+}
+
+/* ------------------------------------------
+  RWD
+--------------------------------------------- */
+@-webkit-viewport {width:device-width}
+@-moz-viewport {width:device-width}
+@-ms-viewport {width:device-width}
+@-o-viewport {width:device-width}
+@viewport {width:device-width}
+
+img, video {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.preload * {
+  @include transition(none !important);
+}
+
+/* ------------------------------------------
+  BASE
+--------------------------------------------- */
+html {
+  _overflow-x: hidden;
+}
+body {
+  min-width: 200px;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  color: $color-black;
+  background: $color-white /*url("../images/baseline.gif") repeat*/;
+  font: normal 112.5%/1.4 $font-body;
+  @include breakpoint(hand) {
+    font-size: 125%;
+  }
+  @include breakpoint(helicopter) {
+    font-size: 150%;
+  }
+  @include breakpoint(microscope) {
+    font-size: 87.5%;
+  }
+}
+
+.content {
+  float: left;
+  text-align: center;
+  margin: 0;
+  padding: 0 0%;
+  width: 100%;
+  @include breakpoint(hand) {
+    padding: 0 8%;
+    width: 84%;
+  }
+  @include breakpoint(lap) {
+    padding: 0 5%;
+    width: 90%;
+  }
+  @include breakpoint(desk) {
+    padding: 0;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 100%;
+  }
+  @include breakpoint(wall) {
+    max-width: 1280px;
+  }
+}
+
+.wrapper {
+  max-width: em(760);
+  margin: 0 auto;
+  @include breakpoint(wall) {
+    _width: em(760);
+  }
+}
+
+.border {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: .5em;
+  background: $color-red;
+}
+
+/* ------------------------------------------
+  LINKS
+--------------------------------------------- */
+a {
+  color: $color-red;
+  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+/* ------------------------------------------
+  BUTTONS
+--------------------------------------------- */
+.btn {
+  display: inline-block;
+  *display: inline;
+  padding: 4px 12px;
+  margin-bottom: 0;
+  *margin-left: .3em;
+  font-family: $font-headers;
+  font-weight: 200;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  *background-color: #e6e6e6;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border: 1px solid #cccccc;
+  *border: 0;
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-bottom-color: #b3b3b3;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  *zoom: 1;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active,
+.btn.active,
+.btn.disabled,
+.btn[disabled] {
+  color: #333333;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+}
+
+.btn:active,
+.btn.active {
+  background-color: #cccccc \9;
+}
+
+.btn:first-child {
+  *margin-left: 0;
+}
+
+.btn:hover,
+.btn:focus {
+  color: #333333;
+  text-decoration: none;
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+     -moz-transition: background-position 0.1s linear;
+       -o-transition: background-position 0.1s linear;
+          transition: background-position 0.1s linear;
+}
+
+.btn-primary {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #006dcc;
+  *background-color: #0044cc;
+  background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+  background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+  background-repeat: repeat-x;
+  border-color: #0044cc #0044cc #002a80;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.disabled,
+.btn-primary[disabled] {
+  color: #ffffff;
+  background-color: #0044cc;
+  *background-color: #003bb3;
+}
+
+.btn-primary:active,
+.btn-primary.active {
+  background-color: #003399 \9;
+}
+
+.btn-danger {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #da4f49;
+  *background-color: #bd362f;
+  background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
+  background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -o-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
+  background-repeat: repeat-x;
+  border-color: #bd362f #bd362f #802420;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffee5f5b', endColorstr='#ffbd362f', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active,
+.btn-danger.disabled,
+.btn-danger[disabled] {
+  color: #ffffff;
+  background-color: #bd362f;
+  *background-color: #a9302a;
+}
+
+.btn-danger:active,
+.btn-danger.active {
+  background-color: #942a25 \9;
+}
+
+/* ------------------------------------------
+  TYPOGRAPHY
+--------------------------------------------- */
+h1, h2, h3 {
+  font-family: $font-headers;
+  text-transform: uppercase;
+  -moz-font-feature-settings: "liga=1, kern=1";
+  -ms-font-feature-settings: "liga" 1, "kern" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 700;
+  color: $color-red;
+}
+
+h1 {
+  font-size: 275%;
+  line-height: 0.82;
+  letter-spacing: -0.03em;
+  margin-bottom: .4em;
+  @include breakpoint(lap) {
+    font-size: 275%;
+  }
+  @include breakpoint(desk) {
+    margin-bottom: .2em;
+    *letter-spacing: -0.2em;
+    font-size: 320%;
+  }
+  @include breakpoint(wall) {
+    font-size: 480%;
+  }
+}
+
+h2 {
+  letter-spacing: -0.02em;
+  font-size: 175%;
+  line-height: 0.82;
+  margin-bottom: .7em;
+  @include breakpoint(desk) {
+    font-size: em(38);
+  }
+}
+
+h3 {
+  -webkit-font-smoothing: subpixel-antialiased;
+  font-weight: 400;
+  font-size: 70%;
+  line-height: 0;
+  float: left;
+  width: 100%;
+  margin: -.2em 0 1em;
+  letter-spacing: 1px;
+  color: $color-black;
+  @include breakpoint(lap) {
+    font-size: 75%;
+  }
+  @include breakpoint(desk) {
+    margin-bottom: .2em;
+    *letter-spacing: -0.2em;
+    font-size: 85%;
+  }
+  @include breakpoint(wall) {
+    font-size: 130%;
+  }
+}
+
+p {
+  margin-bottom: 1.5em;
+  .section & {
+    @include hyphens(auto);
+  }
+}
+
+address {
+	  font: normal 80%/1.4 $font-body;
+}
+
+/* ------------------------------------------
+  NAVIGATION
+--------------------------------------------- */
+#nav {
+  z-index: 1;
+  font-family: $font-headers;
+}
+
+#nav,
+#nav * {
+  @include box-sizing(border-box);
+}
+
+#nav,
+#nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+  float: left;
+  @include breakpoint(desk) {
+    text-align: center;
+  }
+}
+
+#nav li {
+  float: left;
+  width: 100%;
+  display: block;
+  @include breakpoint(desk) {
+    float: none;
+    display: inline-block;
+    *display: block;
+    *float: left;
+    width: auto;
+    margin-left: .4em;
+    margin-right: .2em;
+  }
+}
+
+#nav a {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 112.5%;
+  letter-spacing: 2px;
+  color: $color-white;
+  text-decoration: none;
+  width: 100%;
+  background: $color-red;
+  border-bottom: 1px solid $color-white;
+  padding: .5em 1em;
+  float: left;
+  &:focus {
+    background: darken($color-red, 10%);
+    outline: none;
+  }
+  @include breakpoint(desk) {
+    _float: none;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 1.96em .7em .5em;
+    font-size: em(22, 20);
+    background: transparent;
+    color: $color-black;
+    border: 0;
+    @include transition(background .5s ease);
+    &:hover,
+    &:focus {
+      background: lighten(mix($color-grey, $color-brown, 70%), 26%);
+    }
+  }
+}
+
+#nav .active a {
+  @include breakpoint(desk) {
+    -webkit-font-smoothing: subpixel-antialiased;
+    color: $color-white;
+    background: $color-red;
+    &:hover {
+      text-decoration: none;
+    }
+    &:focus {
+      background: darken($color-red, 10%);
+    }
+  }
+} 
+
+.js #nav {
+  clip: rect(0 0 0 0);
+  max-height: 0;
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  @include breakpoint(desk) {
+    position: relative !important; /* important is IE8 fix */
+    max-height: none;
+  }
+}
+
+#nav.opened {
+  max-height: 9999px;
+}
+
+/* ------------------------------------------
+  NAVIGATION TOGGLE
+--------------------------------------------- */
+#nav-toggle {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 70px;
+  height: 55px;
+  float: right;
+  text-indent: -9999px;
+  overflow: hidden;
+  display: block;
+  background: $color-red url("../images/hamburger.gif") no-repeat 50% 33%;
+  @include breakpoint(highres) {
+    background-image: url("../images/hamburger-retina.gif");
+    @include background-size(100px 100px !important);
+  }
+  @include breakpoint(desk) {
+    display: none;
+  }
+}
+
+/* ------------------------------------------
+  FRONTPAGE INTRO
+--------------------------------------------- */
+.intro, .footer {
+  float: left;
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+  float: left;
+  margin-bottom: 3em;
+  @include breakpoint(wall) {
+    margin-left: -0.5em;
+    *margin-left: 0;
+  }
+}
+
+.intro {
+  margin: 2.5em auto 2em;
+  @include breakpoint(desk) {
+    margin: 2.5em auto 2em;
+    .intro-container {
+      _width: em(504);
+      max-width: em(504);
+      margin: auto;
+    }
+    p {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: em(340);
+      _width: em(340);
+      text-align: center;
+      float: none;
+    }
+    .btn {
+      margin: .7em 1.3em 0 0;
+      float: right;
+    }
+  }
+  @include breakpoint(wall) {
+    margin-top: 2.75em;
+  }
+
+}
+
+/* ------------------------------------------
+  SECTIONS
+--------------------------------------------- */
+.section {
+  //max-width: 80%;
+  //margin: 0 auto;
+  text-align: left;
+  clear: both;
+  margin-top: 3em;
+  
+  @include clearfix;
+  ul {
+    list-style-type: circle;
+    font-weight: 600;
+    @include breakpoint(lap) {
+      margin-left: 0;
+    }
+    @include breakpoint(wall) {
+      margin: 1.34em 0 2em;
+      line-height: 1.4;
+      width: 55%;
+      margin-left: -7%;
+      float: left;
+      li {
+        margin-bottom: 1.4em;
+      }
+      &.list-2 {
+        float: right;
+        margin-left: 0;
+        margin-right: -13%;
+      }
+    }
+  }
+}
+
+#menu, #locations {
+  @include clearfix;
+  padding-top: 0;
+  padding-bottom: 1.74em;
+  margin-bottom: 3.26em;
+  border-bottom: 1px solid lighten($color-grey, 10%);
+}
+
+#menu {
+	  padding-top: 2em;  
+	  border-top: 1px solid lighten($color-grey, 10%);
+}
+
+/* ------------------------------------------
+  CODE BLOCKS
+--------------------------------------------- */
+pre, code {
+  font-family: monospace, monospace;
+}
+
+pre {
+  padding: 2em 2em 1.3em;
+  margin-bottom: 3em;
+  font-size: 75%;
+  float: left;
+  width: 100%;
+  @include box-sizing(border-box);
+  color: lighten($color-black, 4%);
+  background: lighten($color-grey, 26%);
+  white-space: pre;
+  white-space: no-wrap;
+  overflow-x: scroll;
+  _white-space: normal !important;
+  @include box-shadow(
+    0 1px 4px lighten($color-grey, 22%),
+    inset 0 0 0 1px lighten($color-grey, 18%)
+  );
+  &:hover {
+    background: lighten($color-grey, 27%);
+    @include box-shadow(
+      0 1px 4px lighten($color-grey, 22%),
+      inset 0 0 0 1px lighten($color-grey, 8%)
+    );
+  }
+}
+
+pre::-webkit-scrollbar {
+  -webkit-appearance: none;
+  background-color: transparent;
+  width: 8px;
+  height: 8px;
+}
+
+pre::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background-color: lighten($color-grey, 10%);
+}
+
+/* ------------------------------------------
+  HIGHLIGHTING
+--------------------------------------------- */
+.com { color: $color-grey } // Comments
+.lit { color: mix($color-brown, $color-red, 50%) }
+.pun { color: lighten($color-brown, 20%) }
+.opn, .clo, .fun { color: $color-black }
+.str, .atv { color: mix($color-brown, $color-red, 50%) }
+.typ, .atn, .dec, .var { color: $color-brown }
+
+/* ------------------------------------------
+  SLIDER
+--------------------------------------------- */
+/*! http://responsiveslides.com v1.54 by @viljamis */
+
+.rslides {
+  position: relative;
+  list-style: none;
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+  margin: auto;
+  margin-bottom: 2em;
+  -webkit-box-shadow: 0 8px 6px -6px black;
+	   -moz-box-shadow: 0 8px 6px -6px black;
+	        box-shadow: 0 8px 6px -6px black;
+}
+
+.rslides li {
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  display: none;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+.rslides li:first-child {
+  position: relative;
+  display: block;
+  float: left;
+}
+
+.rslides img {
+  display: block;
+  height: auto;
+  float: left;
+  width: 100%;
+  border: solid(inset);
+  border-radius: 3px;
+}
+
+/* ------------------------------------------
+  ACCORDION
+--------------------------------------------- */
+.pattern {
+	text-align: left;
+	padding: 0 1%;
+  max-width: 98%;
+
+  @include breakpoint(lap) {
+    padding: 0 8%;
+    width: 84%;
+  }
+  @include breakpoint(desk) {
+    padding: 0;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 84%;
+  }
+}
+.accordion .panel-title {
+    margin: 0;
+    padding: .75em;
+    -webkit-transition: .3s all ease-in-out;
+     -moz-transition: .3s all ease-in-out;
+       -o-transition: .3s all ease-in-out;
+    transition: .3s all ease-in-out;
+    background: #EFEFEF;
+    color: #333333;
+}
+.accordion .panel-title:hover {
+    background: #CCC;
+}
+.accordion .panel-title:active,
+.accordion .panel-title.active:active {
+    background: #999;
+}
+.accordion .panel-title.active {
+    background: #CCC;
+}
+.accordion .accordion-innerwrap {
+    margin: 0 auto;
+    width: 98%;
+}
+
+.accordion .panel-title .icon,
+.accordion .panel-title.active .icon {
+    font-size: 1.25em;
+    float: right;
+}
+
+.panel-container {
+    margin: .75em 0;
+}
+
+.panel-content {
+    list-style-type: none;
+    margin: 0;
+    padding: .75em;
+    background: #444;
+    color: #EFEFEF;
+}
+.panel-content li {
+    border-bottom: 1px dotted #AAA;
+    padding: .75em;
+}
+.panel-content li:last-child {
+    border-bottom: none;
+    padding-bottom: none;
+}
+
+.js .visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.js .visuallyhidden.focusable,
+.js .visuallyhidden.focusable,
+.no-js .visuallyhidden {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.js .visuallyhidden.focusable:active,
+.js .visuallyhidden.focusable:focus,
+.no-js .visuallyhidden {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+.list-reset {
+    padding: 0;
+    list-style: none;
+}
+
+/* ------------------------------------------
+  LOCATIONS 
+--------------------------------------------- */
+.locations {
+	text-align: left;
+	padding: 0 1%;
+  max-width: 98%;
+  margin: auto;
+  @include breakpoint(lap) {
+    padding: 0 8%;
+    width: 84%;
+  }
+  @include breakpoint(desk) {
+    padding: 0;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 84%;
+  }
+}
+
+.loc {
+  letter-spacing: -0.02em;
+  font-size: 150%;
+  line-height: 1;
+  margin-bottom: .35em;
+  @include breakpoint(desk) {
+    font-size: 150%;
+  }
+}
+
+.col-group > div {
+  padding: 1em;
+  margin-bottom: 1em;
+  @include box-sizing(border-box);
+  color: lighten($color-black, 4%);
+  background: lighten($color-grey, 26%);
+  @include box-shadow(
+	  0 1px 4px lighten($color-grey, 22%),
+	  inset 0 0 0 1px lighten($color-grey, 18%)
+	);
+}
+
+@media screen and (min-width: 46em) {
+  .col-group {
+    overflow: hidden;
+  }
+  .col-group > div {
+    float: left;
+    width: 49%;
+    margin-right: 1%;
+  }
+}
+
+/* ------------------------------------------
+  CONTACT SECTION
+--------------------------------------------- */
+#contact {
+  margin-top: 1em;
+  text-align: center;
+  @include breakpoint(desk) {
+    margin-top: 3em;
+  }
+  span {
+    width: 100%;
+    display: block;
+    margin: .2em 0;
+  }
+  @include breakpoint(desk) {
+    span {
+      width: auto;
+      display: inline;
+      margin: 0 .6em;
+    }
+  }
+  .repo {
+    background: $color-brown;
+    &:hover {
+      background: darken($color-brown, 10%);
+    }
+  }
+}
+
+/* ------------------------------------------
+  FOOTER
+--------------------------------------------- */
+.footer {
+  color: $color-grey;
+  text-align: center;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 0;
+  padding-bottom: 1em;
+  background-width: 100%;
+  background-color: #F5F5F5;
+  padding-top: 20px;
+  border-top: 1px solid #F0F0F0;
+  a {
+    color: $color-grey;
+    &:hover {
+      color: $color-black;
+    }
+  }
+  @include breakpoint(desk) {
+    margin-top: 6em;
+    width: 100%;
+  }
+}
+
+/* ------------------------------------------
+  ICONS
+--------------------------------------------- */
+[class^="icon-"],
+[class*=" icon-"] {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-top: 1px;
+  *margin-right: .3em;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("../images/icons/glyphicons-halflings.png");
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+}
+
+/* White icons with optional class, or on hover/focus/active states of certain elements */
+
+.icon-white,
+.nav-pills > .active > a > [class^="icon-"],
+.nav-pills > .active > a > [class*=" icon-"],
+.nav-list > .active > a > [class^="icon-"],
+.nav-list > .active > a > [class*=" icon-"],
+.navbar-inverse .nav > .active > a > [class^="icon-"],
+.navbar-inverse .nav > .active > a > [class*=" icon-"],
+.dropdown-menu > li > a:hover > [class^="icon-"],
+.dropdown-menu > li > a:focus > [class^="icon-"],
+.dropdown-menu > li > a:hover > [class*=" icon-"],
+.dropdown-menu > li > a:focus > [class*=" icon-"],
+.dropdown-menu > .active > a > [class^="icon-"],
+.dropdown-menu > .active > a > [class*=" icon-"],
+.dropdown-submenu:hover > a > [class^="icon-"],
+.dropdown-submenu:focus > a > [class^="icon-"],
+.dropdown-submenu:hover > a > [class*=" icon-"],
+.dropdown-submenu:focus > a > [class*=" icon-"] {
+  background-image: url("../images/icons/glyphicons-halflings-white.png");
+}
+
+.icon-map-marker {
+  background-position: -24px -72px;
+}
+
+.icon-user {
+  background-position: -168px 0;
+}

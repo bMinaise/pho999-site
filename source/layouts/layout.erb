@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>PHO 999 &mdash; Vietnamese Restaurants</title>
+    <meta name="author" content="Pho 999 Vietnamese Restaurant">
+    <meta name="description" content="Pho 999 Vietnamese Restaurant, Vietnamese Food, Vietnamese Restaurant, Los Angeles, CA">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/icon.png">
+    <script>
+      var doc = document, docEl = doc.documentElement;
+      docEl.className = docEl.className.replace(/(^|\s)no-js(\s|$)/, " js ");
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <%= stylesheet_link_tag "styles" %>
+    <%= javascript_include_tag "all" %>
+    <!--[if lte IE 9]><%= javascript_include_tag "respond" %><![endif]-->
+  </head>
+  <body>
+    <div class="border" id="home"></div>
+    <div class="wrapper">
+      <div id="nav">
+        <ul>
+          <!--<li><a class="brand" href="#">PHO 999</a></li>-->
+          <li><a href="#">Home</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#locations">Locations</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div class="content">
+        <%= yield %>
+      </div>
+    
+    </div><!-- END WRAPPER -->
+    
+    <div class="footer"><p>&copy; 2013 | PHO 999</p>	
+    			<a href="">HOME</a>
+					<a href="">MENU</a>
+					<a href="">LOCATIONS</a>
+					<a href="">CONTACT</a>
+						<br>
+					<a href="" id="facebook">Facebook</a>
+					<a href="" id="twitter">Twitter</a>
+		</div>
+    
+    <script>
+      // Init responsive-nav.js
+      var navigation = responsiveNav("#nav");
+	    // Init responsiveSlides
+	    $(".rslides").responsiveSlides({
+			  auto: true,             // Boolean: Animate automatically, true or false
+			  speed: 500,            // Integer: Speed of the transition, in milliseconds
+			  timeout: 4000,          // Integer: Time between slide transitions, in milliseconds
+			  random: true,          // Boolean: Randomize the order of the slides, true or false
+			  maxwidth: "800"           // Integer: Max-width of the slideshow, in pixels
+			});
+			// Init Accordion
+			$(document).ready(function() {
+		    // Collapsible Menu
+		    function accordion(trigger) {
+		
+		        //variables
+		        var $button = $(trigger),//trigger firing the event
+		            visible = true;//flag for wayfinding
+		
+		            $button.hover().css({'cursor': 'pointer'}); // give the trigger a pointer on :hover
+		
+		        //event
+		        $button.click(function() {
+		
+		            if ( ! visible ) {
+		                $button.removeClass('active');
+		
+		                $('.panel-title .icon').html('&oplus;');
+		
+		                $(this).next().slideUp('slow',function() {
+		                    $(this).addClass('visuallyhidden').slideDown(0);
+		                    $('.panel-content').attr( 'aria-expanded','false' );
+		                });
+		            }else {
+		                $button.addClass('active');
+		
+		                $('.panel-title.active .icon').html('&otimes;');
+		
+		                $(this).next().slideUp(0, function() {
+		                    $('.panel-content').attr( 'aria-expanded','true' );
+		                    $(this).removeClass('visuallyhidden').slideDown('slow');
+		                });
+		            }
+		
+		            // the flag visibility dude
+		            visible = ! visible;
+		            return false
+		        });
+		    }
+		
+		    //call to widget trigger1
+		    accordion('#trigger1');
+		    //call to widget trigger2
+		    accordion('#trigger2');
+		    //call to widget trigger3
+		    accordion('#trigger3');
+		    //call to widget trigger4
+		    accordion('#trigger4');
+		    //call to widget trigger5
+		    accordion('#trigger5');
+		    //call to widget trigger6
+		    accordion('#trigger6');
+		    //call to widget trigger7
+		    accordion('#trigger7');
+		    //call to widget trigger8
+		    accordion('#trigger8');
+		    //call to widget trigger9
+		    accordion('#trigger9');
+		
+		});//end document.ready()
+    </script>
+
+    <script>
+      //insert google analytics here
+    </script>
+  </body>
+</html>
